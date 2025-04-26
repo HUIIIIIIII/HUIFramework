@@ -1,0 +1,7 @@
+.idea
+Library
+obj
+Temp
+Logs
+*.csproj
+mono_crash.70068d5c4.0.json
