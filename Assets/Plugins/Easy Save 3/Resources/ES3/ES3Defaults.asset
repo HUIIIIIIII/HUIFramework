@@ -31,12 +31,27 @@ MonoBehaviour:
     assemblyNames:
     - HybridCLR.Editor
     - Assembly-CSharp-firstpass
-    - Assembly-CSharp
+    - PrimeTween.Runtime
     - PsdPlugin
+    - UniTask
     - PPv2URPConverters
+    - UniTask.Linq
     - Luban.Runtime
+    - PrimeTween.Debug
+    - Assembly-CSharp
+    - FancyScrollView
+    - UniTask.Addressables
+    - PrimeTween.Editor
+    - Sirenix.OdinInspector.Modules.Unity.Addressables
+    - PrimeTween.Demo
     - Luban.Editor
+    - UniTask.TextMeshPro
+    - UniTask.DOTween
     - HybridCLR.Runtime
+    - UniTask.Editor
+    - FancyScrollView.Editor
+    - PrimeTween.Installer
+    - Sirenix.OdinInspector.Modules.UnityMathematics
     showAdvancedSettings: 0
   addMgrToSceneAutomatically: 0
   autoUpdateReferences: 1
