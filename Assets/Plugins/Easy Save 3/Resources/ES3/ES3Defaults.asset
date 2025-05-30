@@ -36,10 +36,9 @@ MonoBehaviour:
     - UniTask
     - PPv2URPConverters
     - UniTask.Linq
+    - Assembly-CSharp
     - Luban.Runtime
     - PrimeTween.Debug
-    - Assembly-CSharp
-    - FancyScrollView
     - UniTask.Addressables
     - PrimeTween.Editor
     - Sirenix.OdinInspector.Modules.Unity.Addressables
@@ -49,7 +48,6 @@ MonoBehaviour:
     - UniTask.DOTween
     - HybridCLR.Runtime
     - UniTask.Editor
-    - FancyScrollView.Editor
     - PrimeTween.Installer
     - Sirenix.OdinInspector.Modules.UnityMathematics
     showAdvancedSettings: 0
