@@ -11,16 +11,18 @@ namespace HUIFramework.UI
 {
     public class UISystem : SingletonMonoBase<UISystem>
     {
+        private const string ui_form_path = "Assets/Game/UI/Form/{0}.prefab";
         private Camera ui_camera;
         public Camera UICamera => ui_camera;
         private Dictionary<UILayer, Transform> ui_groups = new Dictionary<UILayer, Transform>();
         private Dictionary<UIFormId, BaseForm> form_dic = new();
+
         public override async UniTask InitAsync()
         {
             var camera_list = Camera.main.GetComponent<UniversalAdditionalCameraData>().cameraStack;
-            ui_camera = camera_list.Find(x =>x
+            ui_camera = camera_list.Find(x => x
                 .gameObject.name == "ui_camera");
-            
+
             var layer_list = Enum.GetValues(typeof(UILayer)).OfType<UILayer>().ToList();
             layer_list.Sort((x, y) => (int)x - (int)y);
             foreach (var layer in layer_list)
@@ -40,7 +42,8 @@ namespace HUIFramework.UI
             {
                 return panel as T;
             }
-            var form_path = string.Format(AssetPath.ui_form_path, id.ToString());
+
+            var form_path = string.Format(ui_form_path, id.ToString());
             var form_obj = await Addressables.LoadAssetAsync<GameObject>(form_path);
             var form = Instantiate(form_obj, transform).GetComponent<BaseForm>();
             var parent = ui_groups[form.FormLayer];
@@ -49,12 +52,14 @@ namespace HUIFramework.UI
             form_dic.Add(id, form);
             return form as T;
         }
+
         public T GetForm<T>(UIFormId id) where T : BaseForm
         {
             if (form_dic.TryGetValue(id, out var form))
             {
                 return form as T;
             }
+
             return null;
         }
 
@@ -67,6 +72,7 @@ namespace HUIFramework.UI
                 {
                     return;
                 }
+
                 form.SetFormStaus(FormStaus.Showing);
                 await form.OnShow(formData);
                 form.gameObject.SetActive(true);
@@ -82,6 +88,7 @@ namespace HUIFramework.UI
                 {
                     return;
                 }
+
                 form.SetFormStaus(FormStaus.Closing);
                 await form.OnHide();
                 form.gameObject.SetActive(false);

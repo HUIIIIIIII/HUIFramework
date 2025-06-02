@@ -16,7 +16,7 @@ public class TestMono : MonoBehaviour
 
     public async UniTaskVoid Test1()
     {
-        await GameTable<TestValue>.LoadTableValue(AssetPath.table_path);
+        await GameTable<TestValue>.LoadTableValue();
         var value = GameTable<TestValue>.TableValueDic;
         foreach (var pair in value)
         {

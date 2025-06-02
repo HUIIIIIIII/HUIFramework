@@ -10,13 +10,14 @@ namespace HUIFramework.Common
 {
     public class GameTable<TValue> where TValue : TableValue
     {
+        private const string table_path = "Assets/Game/Table/{0}.txt";
         private static Dictionary<string, TValue> table_value_dic = new();
         private static List<TValue> table_value_list = new();
 
         public static Dictionary<string, TValue> TableValueDic => table_value_dic;
         public static List<TValue> TableValueList => table_value_list;
 
-        public static async UniTask LoadTableValue(string table_path)
+        public static async UniTask LoadTableValue()
         {
             var table_name = string.Format(table_path, typeof(TValue).Name.Replace("Value",""));
             var table = await Addressables.LoadAssetAsync<TextAsset>(table_name).ToUniTask();

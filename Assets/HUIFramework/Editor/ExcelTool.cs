@@ -10,6 +10,9 @@ using UnityEngine;
 
 public static class ExcelTool
 {
+    private const string table_class_path = "Assets/HotUpdate/Table/";
+    private const string table_asset_path = "Assets/Game/Table/{0}.txt";
+    
     [MenuItem("HUITool/ExcelTool")]
     public static void Export()
     {
@@ -34,7 +37,7 @@ public static class ExcelTool
    
     private static void ExcelToJson(string file)
     {
-        var table_path= Path.GetFullPath(Path.GetDirectoryName(AssetPath.table_path));
+        var table_path= Path.GetFullPath(Path.GetDirectoryName(table_asset_path));
         var file_name = Path.GetFileNameWithoutExtension(file);
         file_name = char.ToUpper(file_name[0]) + file_name.Substring(1);
         var file_path = Path.Combine(table_path, $"{file_name}.txt");
@@ -101,7 +104,7 @@ public static class ExcelTool
         var table_name = Path.GetFileNameWithoutExtension(file_path);
         table_name = char.ToUpper(table_name[0]) + table_name.Substring(1);
         
-        var class_file_path = Path.Combine(Path.GetFullPath(AssetPath.class_path), $"{table_name}Value.cs");
+        var class_file_path = Path.Combine(Path.GetFullPath(table_class_path), $"{table_name}Value.cs");
         
         var count = Mathf.Min(name.Count, types.Count);
         var str = new StringBuilder();
@@ -122,9 +125,9 @@ public static class ExcelTool
         str.Append("   }\n");
         str.Append("}\n");
         
-        if (!Directory.Exists(AssetPath.class_path))
+        if (!Directory.Exists(table_class_path))
         {
-            Directory.CreateDirectory(AssetPath.class_path);
+            Directory.CreateDirectory(table_class_path);
         }
         if (File.Exists(class_file_path))
         {
@@ -186,7 +189,7 @@ public static class ExcelTool
                 return floatList.ToArray();
             default:
                 EditorUtility.ClearProgressBar();
-                throw new LogException("数据类型不支持: " + type);
+                throw new LogException("value type is not supported: " + type);
         }
         return data;
     }
