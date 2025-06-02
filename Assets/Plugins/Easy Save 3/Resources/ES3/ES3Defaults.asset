@@ -37,18 +37,15 @@ MonoBehaviour:
     - PPv2URPConverters
     - UniTask.Linq
     - Assembly-CSharp
-    - Luban.Runtime
-    - PrimeTween.Debug
+    - Coffee.UIEffect
+    - Coffee.UIEffect.Editor
     - UniTask.Addressables
     - PrimeTween.Editor
     - Sirenix.OdinInspector.Modules.Unity.Addressables
-    - PrimeTween.Demo
-    - Luban.Editor
     - UniTask.TextMeshPro
     - UniTask.DOTween
     - HybridCLR.Runtime
     - UniTask.Editor
-    - PrimeTween.Installer
     - Sirenix.OdinInspector.Modules.UnityMathematics
     showAdvancedSettings: 0
   addMgrToSceneAutomatically: 0
