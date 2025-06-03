@@ -7,12 +7,30 @@
       "dependencies": {},
       "hash": "3fe41a8cbae3c5b9ae88724d60ffe3cf2e9b2881"
     },
-    "com.code-philosophy.luban": {
-      "version": "https://gitee.com/focus-creative-games/luban_unity.git",
+    "com.coffee.ui-effect": {
+      "version": "https://github.com/mob-sakai/UIEffect.git?path=Packages/src#5.7.0",
       "depth": 0,
       "source": "git",
-      "dependencies": {},
-      "hash": "57e577126c4bac9abef927babb848a457ad5d563"
+      "dependencies": {
+        "com.unity.ugui": "1.0.0"
+      },
+      "hash": "d6ee505e7c06b1fb3edf8c9ce383a518f206a294"
+    },
+    "com.harumak.unityuiplayables": {
+      "version": "https://github.com/Haruma-K/UnityUIPlayables.git?path=/Assets/UnityUIPlayables",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {
+        "com.unity.textmeshpro": "2.0.1",
+        "com.unity.timeline": "1.2.14"
+      },
+      "hash": "f6b33433c5204bd982159ba702fe911c10b0b59d"
+    },
+    "com.kyrylokuzyk.primetween": {
+      "version": "file:../Assets/Plugins/PrimeTween/internal/com.kyrylokuzyk.primetween.tgz",
+      "depth": 0,
+      "source": "local-tarball",
+      "dependencies": {}
     },
     "com.unity.2d.animation": {
       "version": "9.1.1",
@@ -72,7 +90,7 @@
     },
     "com.unity.2d.sprite": {
       "version": "1.0.0",
-      "depth": 1,
+      "depth": 0,
       "source": "builtin",
       "dependencies": {}
     },
@@ -186,6 +204,15 @@
       "source": "registry",
       "dependencies": {
         "com.unity.test-framework": "1.1.9"
+      },
+      "url": "https://packages.unity.com"
+    },
+    "com.unity.inputsystem": {
+      "version": "1.7.0",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.modules.uielements": "1.0.0"
       },
       "url": "https://packages.unity.com"
     },

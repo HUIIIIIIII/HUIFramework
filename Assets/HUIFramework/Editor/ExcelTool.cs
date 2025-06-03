@@ -1,9 +1,13 @@
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
+using Codice.CM.WorkspaceServer.DataStore.WkTree;
 using HUIFramework.Common;
 using log4net.Core;
 using Newtonsoft.Json;
+using NPOI.SS.UserModel;
 using NPOI.XSSF.UserModel;
 using UnityEditor;
 using UnityEngine;
@@ -13,7 +17,7 @@ public static class ExcelTool
     private const string table_class_path = "Assets/HotUpdate/Table/";
     private const string table_asset_path = "Assets/Game/Table/{0}.txt";
     
-    [MenuItem("HUITool/ExcelTool")]
+    [MenuItem("HUITool/Tool")]
     public static void Export()
     {
         var excel_path = Path.GetFullPath(Application.dataPath.Replace("Assets", "Excel"));
@@ -35,76 +39,111 @@ public static class ExcelTool
     }
     
    
-    private static void ExcelToJson(string file)
+    private static void ExcelToJson(string excel_Path)
     {
         var table_path= Path.GetFullPath(Path.GetDirectoryName(table_asset_path));
-        var file_name = Path.GetFileNameWithoutExtension(file);
+        var file_name = Path.GetFileNameWithoutExtension(excel_Path);
         file_name = char.ToUpper(file_name[0]) + file_name.Substring(1);
-        var file_path = Path.Combine(table_path, $"{file_name}.txt");
-        var json = JsonConvert.SerializeObject(ReadExcel(file), Formatting.Indented);
+        var json_path = Path.Combine(table_path, $"{file_name}.txt");
+        var data = ReadExcel(excel_Path);
+        var json = "";
+        if (data.Count == 1)
+        {
+            json = JsonConvert.SerializeObject(data[0], Formatting.Indented);
+        }
+        else
+        {
+            json = JsonConvert.SerializeObject(data,Formatting.Indented);
+        }
         if (!Directory.Exists(table_path))
         {
             Directory.CreateDirectory(table_path);
         }
-        if (File.Exists(file_path))
+        if (File.Exists(json_path))
         {
-            File.Delete(file_path);
-        }
-        var content = CryptoUtil.Encrypt(json);
-        using (var writer = new StreamWriter(file_path, false))
+            File.Delete(json_path);
+        } 
+        //json = CryptoUtil.Encrypt(json);
+        
+        using (var writer = new StreamWriter(json_path, false))
         {
-            writer.Write(content);
+            writer.Write(json);
         }
     }
     
-    private static List<Dictionary<string, object>> ReadExcel(string file_path)
+    private static List<Dictionary<string, object>> ReadExcel(string excel_path)
     {
         var result = new List<Dictionary<string, object>>();
-        using (var stream = File.OpenRead(file_path))
+        using (var stream = File.OpenRead(excel_path))
         {
             var workbook = new XSSFWorkbook(stream);
             var sheet = workbook.GetSheetAt(0);
-            var header = new List<string>();
-            var types = new List<string>();
-            var rowEnum = sheet.GetRowEnumerator();
-            
-            // data_name
-            if (rowEnum.MoveNext())
+            if (sheet.GetRow(0).GetCell(0).ToString() == "id")
             {
-                var row = (NPOI.SS.UserModel.IRow)rowEnum.Current;
-                foreach (var cell in row.Cells)
-                    header.Add(cell.ToString());
+                result.AddRange(ReadCommonExcelToJsonAndClass(sheet,excel_path));
             }
-            // data type
-            if (rowEnum.MoveNext())
+            else
             {
-                var row = (NPOI.SS.UserModel.IRow)rowEnum.Current;
-                foreach (var cell in row.Cells)
-                {
-                    types.Add(cell.ToString());
-                }
-            }
-            ExportClass(file_path, header, types);
-            while (rowEnum.MoveNext())
-            {
-                var row = (NPOI.SS.UserModel.IRow)rowEnum.Current;
-                var dict = new Dictionary<string, object>();
-                for (int i = 0; i < header.Count; i++)
-                {
-                    dict[header[i]] = GetData(types[i], row.GetCell(i)?.ToString() ?? string.Empty);
-                }
-                result.Add(dict);
+                result.Add(ReadConfigExcelToJsonAndClass(sheet,excel_path));
             }
         }
         return result;
     }
+    private static List<Dictionary<string,object>> ReadCommonExcelToJsonAndClass(ISheet sheet, string excel_path)
+    {
+        var result = new List<Dictionary<string, object>>();
+        var headers = GetRowCells(sheet, 0);
+        var types = GetRowCells(sheet, 1);
+        ExportClass(excel_path,headers,types);
+        for (var i = 2; i <= sheet.LastRowNum; i++)
+        {
+            var row = sheet.GetRow(i);
+            if (row == null) continue;
+            var dict = new Dictionary<string, object>();
+            for (int j = 0; j < headers.Count; j++)
+            {
+                dict[headers[j]] = GetData(types[j], row.GetCell(j)?.ToString() ?? string.Empty);
+            }
+            result.Add(dict);
+        }
+        return result;
+    }
 
-    public static void ExportClass(string file_path,List<string> name, List<string> types)
+    private static Dictionary<string, object> ReadConfigExcelToJsonAndClass(ISheet sheet, string excel_path)
+    {
+        var dictionary = new Dictionary<string, object>();
+        var names = new List<string>();
+        var types = new List<string>();
+        for (int i = 0; i <= sheet.LastRowNum; i++)
+        {
+            var row = sheet.GetRow(i);
+            var name = row.GetCell(0)?.ToString();
+            names.Add(name);
+            var type = row.GetCell(1)?.ToString();
+            types.Add(type);
+            var value = row.GetCell(2)?.ToString();
+            dictionary[name] = GetData(type, value);
+        }
+        ExportClass(excel_path, names, types, true);
+
+        return dictionary;
+    }
+
+    private static List<string> GetRowCells(ISheet sheet, int rowIndex)
+    {
+        var row = sheet.GetRow(rowIndex);
+        if (row == null) return null;
+        return row.Cells.Select(cell => cell.ToString()).ToList();
+    }
+    
+    
+  
+    public static void ExportClass(string excel_path,List<string> name, List<string> types ,bool config = false)
     {   
-        var table_name = Path.GetFileNameWithoutExtension(file_path);
+        var table_name = Path.GetFileNameWithoutExtension(excel_path);
         table_name = char.ToUpper(table_name[0]) + table_name.Substring(1);
         
-        var class_file_path = Path.Combine(Path.GetFullPath(table_class_path), $"{table_name}Value.cs");
+        var class_path = Path.Combine(Path.GetFullPath(table_class_path), $"{table_name}Value.cs");
         
         var count = Mathf.Min(name.Count, types.Count);
         var str = new StringBuilder();
@@ -112,7 +151,14 @@ public static class ExcelTool
         str.Append("\n");
         str.Append("namespace Table\n");
         str.Append("{\n");
-        str.Append("   public class " + table_name +"Value" + " : TableValue\n");
+        if (config == false)
+        {
+            str.Append("   public class " + table_name +"Value" + " : TableValue\n");
+        }
+        else
+        {
+            str.Append("   public class " + table_name +"Value" + "\n");
+        }
         str.Append("   {\n");
         for (var i = 0; i < count; i++)
         {
@@ -120,7 +166,7 @@ public static class ExcelTool
             {
                 continue;
             }
-            str.Append("       public " + types[i] + " " + name[i] + " { get; }\n");
+            str.Append("       public " + types[i] + " " + name[i] + "; \n");
         }
         str.Append("   }\n");
         str.Append("}\n");
@@ -129,15 +175,16 @@ public static class ExcelTool
         {
             Directory.CreateDirectory(table_class_path);
         }
-        if (File.Exists(class_file_path))
+        if (File.Exists(class_path))
         {
-            File.Delete(class_file_path);
+            File.Delete(class_path);
         }
-        using (var writer = new StreamWriter(class_file_path, false))
+        using (var writer = new StreamWriter(class_path, false))
         {
             writer.Write(str.ToString());
         }
     }
+    
     private static object GetData(string type, string data)
     {
         if (string.IsNullOrEmpty(data)) return null;

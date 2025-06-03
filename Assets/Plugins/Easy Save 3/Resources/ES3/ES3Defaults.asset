@@ -30,6 +30,7 @@ MonoBehaviour:
     serializationDepthLimit: 64
     assemblyNames:
     - HybridCLR.Editor
+    - com.Tivadar.Best.HTTP
     - Assembly-CSharp-firstpass
     - PrimeTween.Runtime
     - PsdPlugin
@@ -43,6 +44,7 @@ MonoBehaviour:
     - PrimeTween.Editor
     - Sirenix.OdinInspector.Modules.Unity.Addressables
     - UniTask.TextMeshPro
+    - com.Tivadar.Best.HTTP.Profiler.Editor
     - UniTask.DOTween
     - HybridCLR.Runtime
     - UniTask.Editor

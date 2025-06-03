@@ -14,19 +14,46 @@ namespace HUIFramework.Common
         private static Dictionary<string, TValue> table_value_dic = new();
         private static List<TValue> table_value_list = new();
 
-        public static Dictionary<string, TValue> TableValueDic => table_value_dic;
-        public static List<TValue> TableValueList => table_value_list;
+        public static Dictionary<string, TValue> TableValueDic
+        {
+            get
+            {
+                if (table_value_dic == null)
+                {
+                    LoadTableValue();
+                }
 
-        public static async UniTask LoadTableValue()
+                return table_value_dic;
+            }
+        }
+
+        public static List<TValue> TableValueList
+        {
+            get 
+            {
+                if (table_value_list == null)
+                {
+                    LoadTableValue();
+                }
+
+                return table_value_list;
+            }
+        }
+
+        public static void LoadTableValue()
         {
             var table_name = string.Format(table_path, typeof(TValue).Name.Replace("Value",""));
-            var table = await Addressables.LoadAssetAsync<TextAsset>(table_name).ToUniTask();
+            var table = Addressables.LoadAssetAsync<TextAsset>(table_name).WaitForCompletion();
             table_value_list = JsonConvert.DeserializeObject<List<TValue>>(CryptoUtil.Decrypt(table.text));
             table_value_dic = table_value_list.ToDictionary(value => value.id, value => value);
         }
 
         public static TValue GetTableValue(string id)
         {
+            if (table_value_dic == null)
+            {
+                LoadTableValue();
+            }
             if (table_value_dic.TryGetValue(id, out var value))
             {
                 return value;
