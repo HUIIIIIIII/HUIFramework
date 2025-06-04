@@ -17,16 +17,11 @@ public static class ExcelTool
     private const string table_class_path = "Assets/HotUpdate/Table/";
     private const string table_asset_path = "Assets/Game/Table/{0}.txt";
     
-    [MenuItem("HUITool/Tool")]
-    public static void Export()
+    [MenuItem("HUITool/ExportExecel")]
+    private static void ExportExcel()
     {
         var excel_path = Path.GetFullPath(Application.dataPath.Replace("Assets", "Excel"));
         var excel_list = Directory.GetFiles(excel_path, "*.xlsx");
-        ExportExcel(excel_list);
-    }
-    
-    private static void ExportExcel(string[] excel_list)
-    {
         EditorUtility.ClearProgressBar();
         for (var i = 0; i < excel_list.Length; i++)
         {
@@ -36,6 +31,7 @@ public static class ExcelTool
             ExcelToJson(excel);
         } 
         EditorUtility.ClearProgressBar();
+        AssetDatabase.Refresh();
     }
     
    

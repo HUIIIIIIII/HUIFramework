@@ -120,7 +120,7 @@ namespace HUIFramework.Common
 
             audioSource.Stop();
             audioSource.clip = null;
-            audio_source_pool.Release(audioSource);
+            audio_source_pool.Return(audioSource);
         }
 
         public void StopAllMusic()

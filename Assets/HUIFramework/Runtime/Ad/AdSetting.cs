@@ -8,7 +8,7 @@ using UnityEngine;
 namespace HUIFramework.Common.Ad
 {
     [CreateAssetMenu(fileName = "AdSetting", menuName = "HUIFramework/Setting/AdSetting", order = 1)]
-    public class AdSetting : ScriptableObject
+    public class AdSetting : SingletonSoBase<AdSetting>
     {
         [OdinSerialize,OnValueChanged("OnPlatformChanged")] private HashSet<AdPlatform> ad_platforms = new HashSet<AdPlatform>();
         public void OnPlatformChanged()

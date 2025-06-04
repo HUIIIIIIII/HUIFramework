@@ -23,7 +23,7 @@ namespace HUIFramework.Common
             return object_pool.Count > 0 ? object_pool.Pop() : create_func();
         }
         
-        public void Release(T obj)
+        public void Return(T obj)
         {
             if (obj == null) return;
             object_pool.Push(obj);
