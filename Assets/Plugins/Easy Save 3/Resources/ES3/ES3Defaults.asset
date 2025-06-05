@@ -29,25 +29,32 @@ MonoBehaviour:
     referenceMode: 2
     serializationDepthLimit: 64
     assemblyNames:
-    - HybridCLR.Editor
     - com.Tivadar.Best.HTTP
     - Assembly-CSharp-firstpass
-    - PrimeTween.Runtime
+    - HybridCLR.Editor
+    - YooAsset
+    - YooAsset.Editor
+    - LocalCode
     - PsdPlugin
+    - Coffee.UIEffect
     - UniTask
     - PPv2URPConverters
     - UniTask.Linq
-    - Assembly-CSharp
-    - Coffee.UIEffect
+    - HotUpdateCode
     - Coffee.UIEffect.Editor
-    - UniTask.Addressables
     - PrimeTween.Editor
-    - Sirenix.OdinInspector.Modules.Unity.Addressables
+    - PrimeTween.Tests.Editor
+    - UniTask.Addressables
+    - PrimeTween.Runtime
+    - UniFramework.Event
+    - PrimeTween.Tests
+    - UniFramework.Utility
     - UniTask.TextMeshPro
-    - com.Tivadar.Best.HTTP.Profiler.Editor
+    - UniFramework.Machine
     - UniTask.DOTween
     - HybridCLR.Runtime
     - UniTask.Editor
+    - com.Tivadar.Best.HTTP.Profiler.Editor
     - Sirenix.OdinInspector.Modules.UnityMathematics
     showAdvancedSettings: 0
   addMgrToSceneAutomatically: 0

@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ac5ea71c4ac4ae4a7a12f6ac1d48138, type: 3}
+  m_Name: GameLocalSetting
+  m_EditorClassIdentifier: 
+  game_play_mode: 0
+  default_host_server: http://127.0.0.1
+  fall_back_host_server: http://127.0.0.1
+  max_download_retry_count: 3

@@ -7,30 +7,17 @@
       "dependencies": {},
       "hash": "3fe41a8cbae3c5b9ae88724d60ffe3cf2e9b2881"
     },
-    "com.coffee.ui-effect": {
-      "version": "https://github.com/mob-sakai/UIEffect.git?path=Packages/src#5.7.0",
+    "com.tuyoogame.yooasset": {
+      "version": "2.3.9",
       "depth": 0,
-      "source": "git",
+      "source": "registry",
       "dependencies": {
-        "com.unity.ugui": "1.0.0"
+        "com.unity.scriptablebuildpipeline": "1.21.25",
+        "com.unity.modules.assetbundle": "1.0.0",
+        "com.unity.modules.unitywebrequest": "1.0.0",
+        "com.unity.modules.unitywebrequestassetbundle": "1.0.0"
       },
-      "hash": "d6ee505e7c06b1fb3edf8c9ce383a518f206a294"
-    },
-    "com.harumak.unityuiplayables": {
-      "version": "https://github.com/Haruma-K/UnityUIPlayables.git?path=/Assets/UnityUIPlayables",
-      "depth": 0,
-      "source": "git",
-      "dependencies": {
-        "com.unity.textmeshpro": "2.0.1",
-        "com.unity.timeline": "1.2.14"
-      },
-      "hash": "f6b33433c5204bd982159ba702fe911c10b0b59d"
-    },
-    "com.kyrylokuzyk.primetween": {
-      "version": "file:../Assets/Plugins/PrimeTween/internal/com.kyrylokuzyk.primetween.tgz",
-      "depth": 0,
-      "source": "local-tarball",
-      "dependencies": {}
+      "url": "https://package.openupm.com"
     },
     "com.unity.2d.animation": {
       "version": "9.1.1",
@@ -123,20 +110,6 @@
         "com.unity.2d.tilemap": "1.0.0",
         "com.unity.modules.tilemap": "1.0.0",
         "com.unity.modules.jsonserialize": "1.0.0"
-      },
-      "url": "https://packages.unity.com"
-    },
-    "com.unity.addressables": {
-      "version": "1.22.3",
-      "depth": 0,
-      "source": "registry",
-      "dependencies": {
-        "com.unity.modules.assetbundle": "1.0.0",
-        "com.unity.modules.jsonserialize": "1.0.0",
-        "com.unity.modules.imageconversion": "1.0.0",
-        "com.unity.modules.unitywebrequest": "1.0.0",
-        "com.unity.scriptablebuildpipeline": "1.21.25",
-        "com.unity.modules.unitywebrequestassetbundle": "1.0.0"
       },
       "url": "https://packages.unity.com"
     },
