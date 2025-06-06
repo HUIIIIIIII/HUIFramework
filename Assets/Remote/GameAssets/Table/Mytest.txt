@@ -1,9 +1,0 @@
-{
-  "testint": 1,
-  "teststring": "ree",
-  "testintarray": [
-    1,
-    2,
-    3
-  ]
-}

@@ -40,7 +40,7 @@ MonoBehaviour:
     - UniTask
     - PPv2URPConverters
     - UniTask.Linq
-    - HotUpdateCode
+    - HotUpdate
     - Coffee.UIEffect.Editor
     - PrimeTween.Editor
     - PrimeTween.Tests.Editor
@@ -53,6 +53,7 @@ MonoBehaviour:
     - UniFramework.Machine
     - UniTask.DOTween
     - HybridCLR.Runtime
+    - Assembly-CSharp
     - UniTask.Editor
     - com.Tivadar.Best.HTTP.Profiler.Editor
     - Sirenix.OdinInspector.Modules.UnityMathematics

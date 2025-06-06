@@ -16,6 +16,8 @@ namespace LocalCode.Common
 
         public override async UniTask InitAsync()
         {
+            var gamePackage = YooAssets.GetPackage("DefaultPackage");
+            YooAssets.SetDefaultPackage(gamePackage);
         }
 
         public T LoadAsset<T>(string name) where T : UnityEngine.Object

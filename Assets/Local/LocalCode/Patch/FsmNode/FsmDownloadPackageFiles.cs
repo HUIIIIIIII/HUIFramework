@@ -17,7 +17,6 @@ public class FsmDownloadPackageFiles : IStateNode
 
     void IStateNode.OnEnter()
     {
-        new PatchEvent.PatchStepsChange("begin download assets！").SendMsg();
         BeginDownloadAsync().Forget();
     }
 

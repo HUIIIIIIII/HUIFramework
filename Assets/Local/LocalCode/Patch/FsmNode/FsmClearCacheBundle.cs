@@ -16,7 +16,6 @@ internal class FsmClearCacheBundle : IStateNode
     }
     void IStateNode.OnEnter()
     {
-        new PatchEvent.PatchStepsChange("clear unused cache files！").SendMsg();
         var package_name = (string)machine.GetBlackboardValue(BlackBoardKey.package_name);
         var package = YooAssets.GetPackage(package_name);
         var operation = package.ClearCacheFilesAsync(EFileClearMode.ClearUnusedBundleFiles);

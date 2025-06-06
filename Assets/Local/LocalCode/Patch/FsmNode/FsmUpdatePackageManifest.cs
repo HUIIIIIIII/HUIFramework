@@ -18,7 +18,7 @@ public class FsmUpdatePackageManifest : IStateNode
     }
     void IStateNode.OnEnter()
     {
-       new PatchEvent.PatchStepsChange("refresh package manifest！").SendMsg();
+        UpdateManifest().Forget();
     }
     void IStateNode.OnUpdate()
     {

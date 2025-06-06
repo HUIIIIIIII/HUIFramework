@@ -5,5 +5,8 @@ namespace LocalCode
         public class EnterGameEvent : EventItem
         {
         }
+        public class HideLoadingEvent : EventItem
+        {
+        }
     }
 }

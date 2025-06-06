@@ -14,7 +14,6 @@ internal class FsmStartGame : IStateNode
     }
     void IStateNode.OnEnter()
     {
-        new PatchEvent.PatchStepsChange("Enter Game！").SendMsg();
         _owner.SetFinish();
     }
     void IStateNode.OnUpdate()

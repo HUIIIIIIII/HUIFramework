@@ -260,6 +260,7 @@ GameObject:
   m_Component:
   - component: {fileID: 436253205}
   - component: {fileID: 436253204}
+  - component: {fileID: 436253206}
   m_Layer: 0
   m_Name: game_entry
   m_TagString: Untagged
@@ -281,6 +282,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   loading_form: {fileID: 661345728}
   local_setting: {fileID: 11400000, guid: 4244935f4b78c4eeca7c8eadf3ccda60, type: 2}
+  load_dlls: {fileID: 436253206}
 --- !u!4 &436253205
 Transform:
   m_ObjectHideFlags: 0
@@ -293,9 +295,22 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 661345725}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &436253206
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 436253203}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d89da26917d6464083e37f09daaaa0f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &643078808
 GameObject:
   m_ObjectHideFlags: 0
@@ -468,7 +483,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1633659927}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 436253205}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1238,7 +1253,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: DOWNLOADING...   <color=#FFCC03>45% / 100%</color>
+  m_text: DOWNLOADING...   <color=#FFCC03>0% / 100%</color>
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a8977a3e1056745daa34b64ce8071fa4, type: 2}
   m_sharedMaterial: {fileID: -5420777401209873331, guid: a8977a3e1056745daa34b64ce8071fa4, type: 2}
@@ -1323,4 +1338,3 @@ SceneRoots:
   - {fileID: 1268873522}
   - {fileID: 360131583}
   - {fileID: 436253205}
-  - {fileID: 661345725}

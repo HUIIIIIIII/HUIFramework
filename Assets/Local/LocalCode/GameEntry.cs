@@ -11,6 +11,7 @@ namespace LocalCode
     {
         [SerializeField] private LoadingGameForm loading_form;
         [SerializeField] private GameLocalSetting local_setting;
+        [SerializeField] private LoadDlls load_dlls;
         private void Start()
         {
             InitSync().Forget();
@@ -19,6 +20,7 @@ namespace LocalCode
 
         private async UniTask InitSync()
         {
+            loading_form.Show(true);
             UniEvent.Initalize();
             YooAssets.Initialize();
             
@@ -26,10 +28,10 @@ namespace LocalCode
             YooAssets.StartOperation(operation);
             await operation;
             
-            var gamePackage = YooAssets.GetPackage("DefaultPackage");
-            YooAssets.SetDefaultPackage(gamePackage);
             await AssetSystem.Instance.InitAsync();
+            await load_dlls.LoadGame();
             AssetSystem.Instance.LoadSceneAsync("Scene/Game");
+            loading_form.Show(false);
         }
     }
 }

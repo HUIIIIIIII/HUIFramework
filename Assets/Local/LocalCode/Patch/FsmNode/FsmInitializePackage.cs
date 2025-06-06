@@ -20,7 +20,6 @@ internal class FsmInitializePackage : IStateNode
     }
     void IStateNode.OnEnter()
     {
-        new PatchEvent.PatchStepsChange("init package！").SendMsg();
         InitPackage().Forget();
     }
     void IStateNode.OnUpdate()
@@ -41,6 +40,12 @@ internal class FsmInitializePackage : IStateNode
         if (package == null)
             package = YooAssets.CreatePackage(package_name);
 
+        if(package.InitializeStatus == EOperationStatus.Succeed)
+        {
+            // if package is already initialized, just change state
+            machine.ChangeState<FsmRequestPackageVersion>();
+            return;
+        }
         // in editor mode
         InitializationOperation init_operation = null;
         if (play_mode == EPlayMode.EditorSimulateMode)

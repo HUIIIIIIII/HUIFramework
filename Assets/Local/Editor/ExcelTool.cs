@@ -11,9 +11,8 @@ using UnityEngine;
 
 public static class ExcelTool
 {
-    private const string table_class_path = "Assets/Remote/HotUpdateCode/GameTable/";
+    private const string table_class_path = "Assets/Remote/HotUpdateCode/Game/GameTable/";
     private const string table_asset_path = "Assets/Remote/GameAssets/GameTable/{0}.txt";
-    #  if UNITY_EDITOR
     [MenuItem("HUITool/ExportExecel")]
     private static void ExportExcel()
     {
@@ -30,9 +29,7 @@ public static class ExcelTool
         EditorUtility.ClearProgressBar();
         AssetDatabase.Refresh();
     }
-    #endif
     
-   
     private static void ExcelToJson(string excel_Path)
     {
         var table_path= Path.GetFullPath(Path.GetDirectoryName(table_asset_path));
@@ -53,10 +50,6 @@ public static class ExcelTool
         {
             Directory.CreateDirectory(table_path);
         }
-        if (File.Exists(json_path))
-        {
-            File.Delete(json_path);
-        } 
         json = CryptoUtil.Encrypt(json);
         
         using (var writer = new StreamWriter(json_path, false))
@@ -135,8 +128,6 @@ public static class ExcelTool
     public static void ExportClass(string excel_path,List<string> name, List<string> types ,bool config = false)
     {   
         var table_name = Path.GetFileNameWithoutExtension(excel_path);
-        table_name = char.ToUpper(table_name[0]) + table_name.Substring(1);
-        
         var class_path = Path.Combine(Path.GetFullPath(table_class_path), $"{table_name}Value.cs");
         
         var count = Mathf.Min(name.Count, types.Count);
@@ -169,10 +160,10 @@ public static class ExcelTool
         {
             Directory.CreateDirectory(table_class_path);
         }
-        if (File.Exists(class_path))
-        {
-            File.Delete(class_path);
-        }
+        // if (File.Exists(class_path))
+        // {
+        //     File.Delete(class_path);
+        // }
         using (var writer = new StreamWriter(class_path, false))
         {
             writer.Write(str.ToString());

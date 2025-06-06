@@ -11,19 +11,7 @@ namespace LocalCode
         public class InitializeFailed : EventItem
         {
         }
-
-        /// <summary>
-        /// patch steps changed
-        /// </summary>
-        public class PatchStepsChange : EventItem
-        {
-            public string tips;
-
-            public PatchStepsChange(string tips)
-            {
-                this.tips = tips;
-            }
-        }
+        
 
         /// <summary>
         /// found update files

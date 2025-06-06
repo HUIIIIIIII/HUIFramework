@@ -17,7 +17,6 @@ public class FsmCreateDownloader : IStateNode
     }
     void IStateNode.OnEnter()
     {
-        new PatchEvent.PatchStepsChange("creat asset downloader！").SendMsg();
         CreateDownloader();
     }
     void IStateNode.OnUpdate()

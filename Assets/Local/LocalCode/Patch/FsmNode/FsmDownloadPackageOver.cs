@@ -14,7 +14,6 @@ internal class FsmDownloadPackageOver : IStateNode
     }
     void IStateNode.OnEnter()
     {
-        new PatchEvent.PatchStepsChange("asset download over！").SendMsg();
         machine.ChangeState<FsmClearCacheBundle>();
     }
     void IStateNode.OnUpdate()

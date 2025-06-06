@@ -17,18 +17,19 @@ namespace LocalCode
         private const string loading_text = "DOWNLOADING...   <color=#FFCC03>{0}% / 100%</color>";
 
         private EventGroup event_group = new EventGroup();
+
         private void Init()
         {
             event_group.AddListener<PatchEvent.InitializeFailed>(OnHandleEventMessage);
-            event_group.AddListener<PatchEvent.PatchStepsChange>(OnHandleEventMessage);
             event_group.AddListener<PatchEvent.FoundUpdateFiles>(OnHandleEventMessage);
             event_group.AddListener<PatchEvent.DownloadUpdate>(OnHandleEventMessage);
             event_group.AddListener<PatchEvent.PackageVersionRequestFailed>(OnHandleEventMessage);
             event_group.AddListener<PatchEvent.PackageManifestUpdateFailed>(OnHandleEventMessage);
             event_group.AddListener<PatchEvent.WebFileDownloadFailed>(OnHandleEventMessage);
+            event_group.AddListener<GameEvent.HideLoadingEvent>(OnHandleEventMessage);
             RefreshProgress(0f);
         }
-        
+
 
         public void RefreshProgress(float progress)
         {
@@ -43,12 +44,7 @@ namespace LocalCode
         {
             if (message is PatchEvent.InitializeFailed)
             {
-                text_tips.text = $"Failed to initialize package !";
-            }
-            else if (message is PatchEvent.PatchStepsChange)
-            {
-                var msg = message as PatchEvent.PatchStepsChange;
-                text_tips.text = msg.tips;
+                text_tips.text = $"Failed to initialize package ";
             }
             else if (message is PatchEvent.FoundUpdateFiles)
             {
@@ -63,15 +59,20 @@ namespace LocalCode
             }
             else if (message is PatchEvent.PackageVersionRequestFailed)
             {
-                text_tips.text =$"Please check the network status.";
+                text_tips.text = $"Please check the network status";
             }
             else if (message is PatchEvent.PackageManifestUpdateFailed)
             {
-                text_tips.text = $"Please check the network status.";
+                text_tips.text = $"Please check the network status";
             }
             else if (message is PatchEvent.WebFileDownloadFailed)
             {
                 text_tips.text = $"Failed to download file";
+            }
+            else if (message is GameEvent.HideLoadingEvent)
+            {
+                text_tips.text = $"Game Loading ...";
+                Show(false);
             }
             else
             {

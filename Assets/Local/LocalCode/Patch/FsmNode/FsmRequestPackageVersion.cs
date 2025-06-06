@@ -19,7 +19,6 @@ internal class FsmRequestPackageVersion : IStateNode
 
     void IStateNode.OnEnter()
     {
-        new PatchEvent.PatchStepsChange("request package version !").SendMsg();
         UpdatePackageVersion().Forget();
     }
 
@@ -48,7 +47,7 @@ internal class FsmRequestPackageVersion : IStateNode
         else
         {
             GameLog.Log($"Request package version : {operation.PackageVersion}");
-            machine.SetBlackboardValue("PackageVersion", operation.PackageVersion);
+            machine.SetBlackboardValue(BlackBoardKey.package_version, operation.PackageVersion);
             machine.ChangeState<FsmUpdatePackageManifest>();
         }
     }

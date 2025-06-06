@@ -2,7 +2,7 @@ using HUIFramework.Common;
 
 namespace Table
 {
-   public class MytestValue
+   public class MyTestValue
    {
        public int testint; 
        public string teststring; 
