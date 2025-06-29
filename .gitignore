@@ -5,3 +5,9 @@ Temp
 Logs
 *.csproj
 mono_crash.70068d5c4.0.json
+Bundles
+HUIFramework.sln
+HUIFramework.sln.DotSettings.user
+.DS_Store
+Game/DefaultPackage
+HybridCLRData

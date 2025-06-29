@@ -4,45 +4,46 @@ using System.Collections.Generic;
 namespace LocalCode.Common{
     public static class MsgSystem
     {
-        private static readonly Dictionary<string, Delegate> event_table = new Dictionary<string, Delegate>();
-
-        public static void AddMsg<T>(string event_name, Action<T> callback)
+        private static Dictionary<string, List<Action<object[]>>> event_table = new();
+        public static void AddMsg(string event_name, Action<object[]> msg_action)
         {
-            if (event_table.TryGetValue(event_name, out var del))
+            if (event_table.ContainsKey(event_name))
             {
-                event_table[event_name] = Delegate.Combine(del, callback);
+                if (event_table[event_name].Contains(msg_action) == false)
+                {
+                    event_table[event_name].Add(msg_action);
+                }
             }
             else
             {
-                event_table[event_name] = callback;
+                event_table.Add(event_name, new List<Action<object[]>>(){msg_action});
             }
             
         }
 
-        public static void RemoveMsg<T>(string event_name, Action<T> callback)
+        public static void RemoveMsg(string event_name, Action<object[]> msg_action)
         {
-            if (event_table.TryGetValue(event_name, out var del))
+            if (event_table.ContainsKey(event_name))
             {
-                del = Delegate.Remove(del, callback);
-                if (del == null)
-                    event_table.Remove(event_name);
-                else
-                    event_table[event_name] = del;
-            }
-        }
-
-        public static void SendMsg<T>(string event_name, T arg)
-        {
-            if (event_table.TryGetValue(event_name, out var del))
-            {
-                if (del is Action<T> callback)
+                if (event_table[event_name].Contains(msg_action))
                 {
-                    callback.Invoke(arg);
+                    event_table[event_name].Remove(msg_action);
                 }
             }
         }
 
-        public static void Clear()
+        public static void SendMsg(string event_name, object[] args)
+        {
+            if (event_table.ContainsKey(event_name))
+            {
+                for (var i = 0; i < event_table[event_name].Count; i++)
+                {
+                    event_table[event_name][i](args);
+                }
+            }
+        }
+
+        public static void ClearAllMsg()
         {
             event_table.Clear();
         }
